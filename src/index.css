@@ -111,3 +111,16 @@ button {
   text-shadow: 2px 3px 4px lightslategray;
 }
 
+  .customers {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    margin: 3rem;
+  }
+
+  .customers > * {
+    flex-basis: 31%;
+    margin: 0.5rem;
+  }
+
