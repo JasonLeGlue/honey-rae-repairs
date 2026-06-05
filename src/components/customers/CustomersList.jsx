@@ -1,5 +1,7 @@
 import { useEffect, useState } from "react";
 import { getNonStaffUsers } from "../../services/userService.jsx";
+import { User } from "../../users/User.jsx";
+import "./Customers.css";
 
 export const CustomerList = () => {
   const [customers, setCustomers] = useState([]);
@@ -13,18 +15,7 @@ export const CustomerList = () => {
   return (
     <div className="customers">
       {customers.map((customerObj) => {
-        return (
-          <div>
-            <div>
-              <div>Name</div>
-              <div>{customerObj.fullName}</div>
-            </div>
-            <div>
-              <div>Email</div>
-              <div>{customerObj.email}</div>
-            </div>
-          </div>
-        );
+        return <User user={customerObj} />;
       })}
     </div>
   );
