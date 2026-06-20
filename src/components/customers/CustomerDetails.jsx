@@ -19,7 +19,7 @@ export const CustomerDetails = () => {
 
   return (
     <section className="customer">
-      <header className="customer-header">{customer.user?.fullname}</header>
+      <header className="customer-header">{customer.user?.fullName}</header>
       <div>
         <span className="customer-info">Email: </span>
         {customer.user?.email}
