@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { User } from "../../users/User.jsx";
 import { Link } from "react-router-dom";
-import { getStaffUsers } from "../../services/userService.jsx";
+import { getStaffUsers } from "../../services/userService.js";
 import "./Employees.css";
 export const EmployeeList = () => {
   //make list of employees an empty useState
