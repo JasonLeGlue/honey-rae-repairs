@@ -1,16 +1,39 @@
 import "./Form.css";
 import { useState, useEffect } from "react";
 import { getEmployeeByUserId } from "../../services/employeeService.js";
+import { updateEmployee } from "../../services/employeeService.js";
+import { useNavigate } from "react-router-dom";
 
 export const EmployeeForm = ({ currentUser }) => {
-  const [employee, setEmployee] = useState({});
+  const [employee, setEmployee] = useState({ specialty: "", rate: "" });
+
+  const navigate = useNavigate();
 
   useEffect(() => {
     getEmployeeByUserId(currentUser.id).then((data) => {
-      const employeeObj = data[0];
-      setEmployee(employeeObj);
+      console.log(data);
+      if (data.length > 0) {
+        const employeeObj = data[0];
+        setEmployee(employeeObj);
+      }
     });
   }, [currentUser]);
+
+  const handleSave = (event) => {
+    event.preventDefault();
+    console.log("clicked");
+
+    const editedEmployee = {
+      id: employee.id,
+      specialty: employee.specialty,
+      rate: employee.rate,
+      userId: employee.userId,
+    };
+
+    updateEmployee(editedEmployee).then(() => {
+      navigate(`/employees/${currentUser.id}`);
+    });
+  };
 
   return (
     <form className="profile">
@@ -38,13 +61,20 @@ export const EmployeeForm = ({ currentUser }) => {
             type="number"
             value={employee.rate}
             required
+            onChange={(event) => {
+              const copy = { ...employee };
+              copy.rate = event.target.value;
+              setEmployee(copy);
+            }}
             className="form-control"
           />
         </div>
       </fieldset>
       <fieldset>
         <div className="form-group">
-          <button className="form-btn btn-primary">Save Profile</button>
+          <button className="form-btn btn-primary" onClick={handleSave}>
+            Save Profile
+          </button>
         </div>
       </fieldset>
     </form>
